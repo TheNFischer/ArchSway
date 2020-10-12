@@ -4,7 +4,7 @@
 #     /_\  _ _ __| |_ |  \/  |__ _| |_(_)__
 #    / _ \| '_/ _| ' \| |\/| / _` |  _| / _|
 #   /_/ \_\_| \__|_||_|_|  |_\__,_|\__|_\__|
-#  Arch Linux Install Setup and Config with BTRFS on UEFI
+#  Arch Linux Install Setup and Config with BTRFS on UEFI x86_64
 #-------------------------------------------------------------------------
 
 echo "-------------------------------------------------"
@@ -77,7 +77,6 @@ if [[ $guidedPartitioning =~ y ]]; then
     mount -o noatime,compress=lzo,space_cache,subvol=@home "${DISK}2" /mnt/home
     mount -o noatime,compress=lzo,space_cache,subvol=@var "${DISK}2" /mnt/var
     mount -o noatime,compress=lzo,space_cache,subvol=@snapshots "${DISK}2" /mnt/.snapshots
-    mkdir /mnt/boot/efi
     mount -t vfat "${DISK}1" /mnt/boot/
 else
     echo "--------------------------------------"
@@ -89,7 +88,7 @@ fi
 echo "--------------------------------------"
 echo "-- Arch Install on Main Drive       --"
 echo "--------------------------------------"
-pacstrap /mnt base base-devel linux linux-firmware vim nano sudo grub grub-btrfs snapper zsh --noconfirm --needed
+pacstrap /mnt base base-devel linux linux-firmware vim nano sudo grub grub-btrfs snapper zsh efibootmgr zsh-completions pacman-contrib curl git dosfstools mtools linux-headers wpa_supplicant --noconfirm --needed
 genfstab -U /mnt >>/mnt/etc/fstab
 cat /mnt/etc/fstab
 arch-chroot /mnt
@@ -98,13 +97,28 @@ arch-chroot /mnt
 echo "--------------------------------------"
 echo "--  Bootloader Grub Installation    --"
 echo "--------------------------------------"
-
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
+systemctl enable grub-btrfs.path
 
 echo "--------------------------------------"
 echo "--          Network Setup           --"
 echo "--------------------------------------"
 pacman -S networkmanager dhclient --noconfirm --needed
 systemctl enable --now NetworkManager
+
+echo "--------------------------------------"
+echo "--          Snapper Setup           --"
+echo "--------------------------------------"
+umount /.snapshots/
+rm -rf /.snapshots/
+snapper -c root create-config /
+groupadd snapper
+sed -e 's/^ALLOW_GROUPS=""/ALLOW_GROUPS="snapper"/' /etc/snapper/configs/root > /etc/snapper/configs/root.new
+mv /etc/snapper/configs/root.new /etc/snapper/configs/root
+chmod a+rx /.snapshots/
+systemctl enable snapper-timeline.timer
+systemctl enable snapper-cleanup.timer
 
 echo "--------------------------------------"
 echo "--      Set Password for Root       --"
