@@ -93,7 +93,7 @@ genfstab -U /mnt >>/mnt/etc/fstab
 cat /mnt/etc/fstab
 cd /mnt/home
 wget https://raw.githubusercontent.com/TheNFischer/ArchSway/master/preinstall-chroot.sh
-arch-chroot /mnt /bin/bash -c "-c /home/preinstall-chroot.sh"
+arch-chroot /mnt /bin/bash -c "sh /home/preinstall-chroot.sh"
 
 # preinstall-chroot.sh
 
