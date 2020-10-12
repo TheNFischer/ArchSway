@@ -80,28 +80,25 @@ if [[ $guidedPartitioning =~ y ]]; then
     mkdir /mnt/boot/efi
     mount -t vfat "${DISK}1" /mnt/boot/
 else
+    echo "--------------------------------------"
     echo "The script is now halted\nContinue by pressing Enter after partitioning and mounting everything.\nChange therefore the console with Ctrl + Alt + F2"
+    echo "--------------------------------------"
     read waitingOnUser
 fi
 
 echo "--------------------------------------"
 echo "-- Arch Install on Main Drive       --"
 echo "--------------------------------------"
-pacstrap /mnt base base-devel linux linux-firmware vim nano sudo grub grub-btrfs snapper --noconfirm --needed
+pacstrap /mnt base base-devel linux linux-firmware vim nano sudo grub grub-btrfs snapper zsh --noconfirm --needed
 genfstab -U /mnt >>/mnt/etc/fstab
 cat /mnt/etc/fstab
 arch-chroot /mnt
 
+
 echo "--------------------------------------"
-echo "-- Bootloader Systemd Installation  --"
+echo "--  Bootloader Grub Installation    --"
 echo "--------------------------------------"
-bootctl install
-cat <<EOF >/boot/loader/entries/arch.conf
-title Arch Linux  
-linux /vmlinuz-linux  
-initrd  /initramfs-linux.img  
-options root=${DISK}1 rw
-EOF
+
 
 echo "--------------------------------------"
 echo "--          Network Setup           --"
