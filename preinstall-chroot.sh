@@ -21,19 +21,6 @@ pacman -S networkmanager dhclient --noconfirm --needed
 systemctl enable --now NetworkManager
 
 echo "--------------------------------------"
-echo "--          Snapper Setup           --"
-echo "--------------------------------------"
-umount /.snapshots/
-rm -rf /.snapshots/
-snapper -c root create-config /
-groupadd snapper
-sed -e 's/^ALLOW_GROUPS=""/ALLOW_GROUPS="snapper"/' /etc/snapper/configs/root > /etc/snapper/configs/root.new
-mv /etc/snapper/configs/root.new /etc/snapper/configs/root
-chmod a+rx /.snapshots/
-systemctl enable snapper-timeline.timer
-systemctl enable snapper-cleanup.timer
-
-echo "--------------------------------------"
 echo "--      Set Password for Root       --"
 echo "--------------------------------------"
 echo "Enter password for root user: "
