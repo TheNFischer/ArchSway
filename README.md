@@ -16,10 +16,8 @@ First, setup the boot USB, boot arch live iso, and run the `preinstall.sh` from 
 
 This step installs arch to your hard drive. *IT WILL FORMAT THE DISK*
 
-*should be changed to curl*
 ```bash
-wget https://raw.githubusercontent.com/TheNFischer/ArchSway/master/preinstall.sh
-sh preinstall.sh
+curl "https://raw.githubusercontent.com/TheNFischer/ArchSway/master/preinstall.sh" -o "preinstall.sh" && sh preinstall.sh
 reboot
 ```
 
