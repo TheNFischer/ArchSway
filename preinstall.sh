@@ -12,8 +12,8 @@ echo "Setting up mirrors for optimal download"
 echo "-------------------------------------------------"
 loadkeys de_CH-latin1
 timedatectl set-ntp true
-pacman -Sy --noconfirm
-pacman -S --noconfirm pacman-contrib
+pacman -Syyy --noconfirm
+pacman -S --noconfirm pacman-contrib wget
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 
 # Downloads the complete mirrorlist of https servers and sorts them
