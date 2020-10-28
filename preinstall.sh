@@ -63,7 +63,7 @@ if [[ $guidedPartitioning =~ y ]]; then
     fi
 
     mkfs.fat -F32 -n "UEFISYS" "${DISK}1"
-    mkfs.btrfs -L "ROOT" "${DISK}2"
+    mkfs.btrfs -f -L "ROOT" "${DISK}2"
 
     # mount target
     mount "${DISK}2" /mnt
