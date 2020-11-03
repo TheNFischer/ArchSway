@@ -33,7 +33,8 @@ if [[ $guidedPartitioning =~ y ]]; then
     echo "-------select your disk to format----------------"
     echo "-------------------------------------------------"
     lsblk
-    echo "Please enter disk: (example /dev/sda)\nCaution! This will erase the disk completly."
+    echo "Please enter disk: (example /dev/sda)"
+    echo "Caution! This will erase the disk completly."
     read DISK
     echo "--------------------------------------"
     echo -e "\nFormatting disk...\n$HR"
@@ -80,7 +81,8 @@ if [[ $guidedPartitioning =~ y ]]; then
     mount -t vfat "${DISK}1" /mnt/boot/
 else
     echo "--------------------------------------"
-    echo "The script is now halted\nContinue by pressing Enter after partitioning and mounting everything.\nChange therefore the console with Ctrl + Alt + F2"
+    echo "The script is now halted! Continue by pressing Enter after partitioning and mounting everything."
+    echo "Change therefore the console with Ctrl + Alt + F2"
     echo "--------------------------------------"
     read waitingOnUser
 fi
