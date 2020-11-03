@@ -90,7 +90,7 @@ fi
 echo "--------------------------------------"
 echo "-- Arch Install on Main Drive       --"
 echo "--------------------------------------"
-pacstrap /mnt base base-devel linux linux-firmware vim nano sudo grub grub-btrfs snapper zsh efibootmgr zsh-completions pacman-contrib curl git dosfstools mtools linux-headers wpa_supplicant --noconfirm --needed
+pacstrap /mnt base base-devel linux linux-lts linux-firmware vim nano sudo grub grub-btrfs snapper zsh efibootmgr zsh-completions pacman-contrib curl git dosfstools mtools linux-headers wpa_supplicant --noconfirm --needed
 genfstab -U /mnt >>/mnt/etc/fstab
 cat /mnt/etc/fstab
 cd /mnt/home
