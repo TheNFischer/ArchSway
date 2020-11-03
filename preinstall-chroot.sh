@@ -17,8 +17,13 @@ systemctl enable grub-btrfs.path
 echo "--------------------------------------"
 echo "--          Network Setup           --"
 echo "--------------------------------------"
-pacman -S networkmanager dhclient --noconfirm --needed
-systemctl enable --now NetworkManager
+pacman -S networkmanager --noconfirm --needed
+systemctl enable NetworkManager
+# Systemd instead of Networkmanager
+#systemctl enable systemd-resolved
+#systemctl enable systemd-networkd.service
+#rm /etc/resolv.conf
+#ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
 echo "--------------------------------------"
 echo "--      Set Password for Root       --"
