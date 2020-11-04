@@ -8,6 +8,18 @@
 #-------------------------------------------------------------------------
 
 echo "--------------------------------------"
+echo "--        Language and time         --"
+echo "--------------------------------------"
+ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime
+hwclock --systohc
+# Locale file needs to be edited...
+# /etc/locale.gen de_CH.UTF-8 UTF-8
+locale-gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+echo "KEYMAP=de_CH-latin1" > /etc/vconsole.conf
+echo "arch-$RANDOM" > /etc/hostname
+
+echo "--------------------------------------"
 echo "--  Bootloader Grub Installation    --"
 echo "--------------------------------------"
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
