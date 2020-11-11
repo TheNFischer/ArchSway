@@ -18,7 +18,7 @@ mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 
 # Downloads the complete mirrorlist of https servers and sorts them
 # -e 's/^#Server/Server/' uncomments all servers | -e '/^#/d' deletes lines beginning with #
-curl -s "https://www.archlinux.org/mirrorlist/?country=AT&country=FR&country=DE&country=GR&country=IT&country=NL&country=ES&country=CH&country=GB&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 6 - >/etc/pacman.d/mirrorlist
+curl -s "https://www.archlinux.org/mirrorlist/?protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 6 - >/etc/pacman.d/mirrorlist
 
 echo -e "\nInstalling prereqs...\n$HR"
 pacman -S --noconfirm gptfdisk btrfs-progs
@@ -90,6 +90,8 @@ fi
 echo "--------------------------------------"
 echo "-- Arch Install on Main Drive       --"
 echo "--------------------------------------"
+curl -s "https://www.archlinux.org/mirrorlist/?protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 6 - >/etc/pacman.d/mirrorlist
+pacman -Syyy
 pacstrap /mnt base base-devel linux linux-lts linux-firmware vim nano sudo grub grub-btrfs snapper zsh efibootmgr zsh-completions pacman-contrib curl git dosfstools mtools linux-headers wpa_supplicant --noconfirm --needed
 genfstab -U /mnt >>/mnt/etc/fstab
 cat /mnt/etc/fstab
