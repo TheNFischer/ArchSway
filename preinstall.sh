@@ -14,7 +14,6 @@ loadkeys de_CH-latin1
 timedatectl set-ntp true
 pacman -Syyy --noconfirm
 pacman -S --noconfirm pacman-contrib wget
-wget https://raw.githubusercontent.com/TheNFischer/ArchSway/master/preinstall-chroot.sh
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 
 # Downloads the complete mirrorlist of https servers and sorts them
@@ -95,6 +94,7 @@ pacstrap /mnt base base-devel linux linux-lts linux-firmware vim nano sudo grub 
 genfstab -U /mnt >>/mnt/etc/fstab
 cat /mnt/etc/fstab
 cd /mnt/home
+wget https://raw.githubusercontent.com/TheNFischer/ArchSway/master/preinstall-chroot.sh
 arch-chroot /mnt /bin/bash -c "sh /home/preinstall-chroot.sh"
 
 # preinstall-chroot.sh
