@@ -56,14 +56,15 @@ passwd arch
 echo "--------------------------------------"
 echo "--        Check sudoers file        --"
 echo "--------------------------------------"
-sed 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+ALL\)/\1/' /etc/sudoers | less
-echo "If sudoers file is correct, enter y"
-read sudoersOk
-if [[ $sudoersOk =~ y ]]; then
-    sed 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+ALL\)/\1/' /etc/sudoers > /etc/sudoers
-else
-    echo "Please configure file correctly with visudo and press enter."
-    read waitingOnUser
-fi
+#sed 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+ALL\)/\1/' /etc/sudoers | less
+#echo "If sudoers file is correct, enter y"
+#read sudoersOk
+#if [[ $sudoersOk =~ y ]]; then
+#    sed 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+ALL\)/\1/' /etc/sudoers > /etc/sudoers
+#else
+#    echo "Please configure file correctly with visudo and press enter."
+#    read waitingOnUser
+#fi
+visudo
 
 exit
