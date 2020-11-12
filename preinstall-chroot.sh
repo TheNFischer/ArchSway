@@ -28,7 +28,7 @@ systemctl enable grub-btrfs.path
 echo "--------------------------------------"
 echo "--          Network Setup           --"
 echo "--------------------------------------"
-pacman -S networkmanager go --noconfirm --needed
+pacman -S networkmanager --noconfirm --needed
 systemctl enable NetworkManager
 # Systemd instead of Networkmanager
 #systemctl enable systemd-resolved
