@@ -30,6 +30,7 @@ echo "--          Network Setup           --"
 echo "--------------------------------------"
 pacman -S networkmanager --noconfirm --needed
 systemctl enable NetworkManager
+systemctl enable sshd
 # Systemd instead of Networkmanager
 #systemctl enable systemd-resolved
 #systemctl enable systemd-networkd.service
