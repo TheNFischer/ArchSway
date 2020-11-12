@@ -12,8 +12,7 @@ echo "--        Language and time         --"
 echo "--------------------------------------"
 ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime
 hwclock --systohc
-# Locale file needs to be edited...
-# /etc/locale.gen de_CH.UTF-8 UTF-8
+sed -e 's/^#de_CH.UTF-8/de_CH.UTF-8/' /etc/locale.gen > /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo "KEYMAP=de_CH-latin1" > /etc/vconsole.conf
