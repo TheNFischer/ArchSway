@@ -90,7 +90,7 @@ fi
 echo "--------------------------------------"
 echo "-- Arch Install on Main Drive       --"
 echo "--------------------------------------"
-curl -s "https://www.archlinux.org/mirrorlist/?protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 6 - >/etc/pacman.d/mirrorlist
+# curl -s "https://www.archlinux.org/mirrorlist/?protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 6 - >/etc/pacman.d/mirrorlist
 pacman -Syyy
 pacstrap /mnt base base-devel linux linux-lts linux-firmware vim nano sudo grub grub-btrfs snapper zsh efibootmgr zsh-completions pacman-contrib curl git dosfstools mtools linux-headers wpa_supplicant --noconfirm --needed
 genfstab -U /mnt >>/mnt/etc/fstab
