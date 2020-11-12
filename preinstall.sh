@@ -13,13 +13,13 @@ echo "-------------------------------------------------"
 loadkeys de_CH-latin1
 timedatectl set-ntp true
 pacman -Syyy --noconfirm
-pacman -S --noconfirm pacman-contrib wget #python rsync reflector
+pacman -S --noconfirm pacman-contrib wget reflector
 mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 
 # Downloads the complete mirrorlist of https servers and sorts them
 # -e 's/^#Server/Server/' uncomments all servers | -e '/^#/d' deletes lines beginning with #
-curl -s "https://www.archlinux.org/mirrorlist/?protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 6 - >/etc/pacman.d/mirrorlist
-#reflector --latest 200 --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+#curl -s "https://www.archlinux.org/mirrorlist/?protocol=https&ip_version=4&ip_version=6&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 6 - >/etc/pacman.d/mirrorlist
+reflector --latest 20 --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
 echo -e "\nInstalling prereqs...\n$HR"
 pacman -S --noconfirm gptfdisk btrfs-progs
