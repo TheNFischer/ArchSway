@@ -43,4 +43,13 @@ echo "--------------------------------------"
 echo "Enter password for root user: "
 passwd root
 
+# Adding User arch
+groupadd snapper
+useradd -m -G wheel,network,audio,log,input,kvm,video,users,snapper -s /bin/zsh arch
+echo "--------------------------------------"
+echo "--    Set Password for User arch    --"
+echo "--------------------------------------"
+echo "Enter password for user arch: "
+passwd arch
+
 exit
